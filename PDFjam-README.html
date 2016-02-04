@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd"> <html>
+<head> 
+<title>PDFjam-README.html</title> 
+<!-- pdfmerge, pdfcat, pdfrotate -->
+</head> 
+
+<body>
+
+<p><em>Author</em>: David Firth, <a href="http://go.warwick.ac.uk/dfirth">http://go.warwick.ac.uk/dfirth</a></p>
+
+<p> <strong> This file is kept up to date at <a href="http://go.warwick.ac.uk/pdfjam" _mce_href="http://go.warwick.ac.uk/pdfjam">http://go.warwick.ac.uk/pdfjam</a>. </strong> </p>
+<ul>
+  <li><a href="#overview">Overview</a> </li>
+  <li><a href="#prereq">Pre-requisites</a> </li>
+  <li><a href="#documentation">Documentation</a> </li>
+  <li><a href="#download">Download</a> </li>
+  <li><a href="#install">Installation/configuration</a> </li>
+  <li><a href="#using">Using the scripts</a> </li>
+  <li><a href="#droplets">Mac OS X only: drag-and-drop</a> </li>
+  <li><a href="#faq">FAQ</a> </li>
+  <li><a href="#bugs">Reporting bugs</a> </li>
+  <li><a href="#history">Version history</a> </li>
+</ul>
+
+<p> <a name="overview"></a> </p>
+
+<h2 align="justify">Overview</h2>
+
+<p><strong>PDFjam</strong> is a small collection of shell scripts which provide a simple interface to much of the functionality of the excellent <a href="http://www.ctan.org/tex-archive/macros/latex/contrib/pdfpages/pdfpages.pdf" title="Link to the pdfpages manual (PDF)">pdfpages <img src="http://www2.warwick.ac.uk/brands/icons/acrobat.gif" alt="PDF file" title="PDF file" border="0" height="16" width="16" /></a> package (by Andreas Matthias) for <a href="http://www.tug.org/applications/pdftex/">pdfLaTeX</a>. These scripts take one or more PDF files (and/or JPG/PNG graphics files) as input, and produce one or more PDF files as output. They are useful for joining files together, selecting pages, reducing several source pages onto one output page, etc., etc.</p>
+
+<p>The main script is named &quot;<strong><tt>pdfjam</tt></strong>&quot;. This is the core of the package.</p>
+
+<p>All of the other scripts provided in the PDFjam package are optional extras. They are simple wrappers for calls to <tt>pdfjam</tt>, designed to perform some common tasks such as joining or n-upping PDF files or to illustrate other features; they are not very elaborate, nor are they extensively tested. They are probably best thought of as simple templates that can be used for constructing more elaborate wrapper scripts as required. At present the wrapper scripts distributed in the PDFjam package are: </p>
+
+<ul>
+  <li> <strong><tt>pdfnup</tt></strong>, which allows one or more PDF files to be &quot;n-upped&quot; in roughly the way that <a href="http://www.tardis.ed.ac.uk/~ajcd/psutils/psnup.html"><tt>psnup</tt></a> does for PostScript files. (This was the original motivation: for files that have to be printed, or have to be made available to dozens or hundreds of other people for printing, n-up formatting saves trees!)</li>
+  <li><strong><tt>pdfpun</tt></strong>, similar to <tt>pdfnup</tt> but arranges the source pages right-to-left on the output page, ie in a format more suitable for right-to-left languages. This script works only on one file at a time. (Thanks to Ido for suggesting this.)</li>
+  <li> <strong><tt>pdfjoin</tt></strong>, which combines the pages of multiple PDF files together into a single file.</li>
+  <li> <strong><tt>pdf90</tt></strong>, <strong><tt>pdf180</tt></strong> and <strong><tt>pdf270</tt></strong> which rotate the pages of one or more PDF files.</li>
+  <li><strong><tt>pdfflip</tt></strong> which reflects the pages of one or more PDF files. (Suitable for making transparencies if you want to write on the back of them!)</li>
+  <li><strong><tt>pdfbook</tt></strong> which arranges pages into 2-up &quot;signatures&quot; (like <a href="http://www.tardis.ed.ac.uk/~ajcd/psutils/psbook.html"><tt>psbook</tt></a> does for PostScript files), suitable for binding into a book. (Many people have suggested that this would be useful &mdash; I hope it is!)</li>
+  <li><strong><tt>pdfjam-pocketmod</tt></strong> which converts 8 pages from a single PDF file into a pocket-sized booklet. (<a href="http://repocketmod.com/">Folding instructions here!</a> Thanks to Thomas Nemeth for suggesting this.)</li>
+  <li><strong><tt>pdfjam-slides6up</tt></strong> and <strong><tt>pdfjam-slides3up</tt></strong> which process PDF presentation slides to six-per-page or three-per-page for handout purposes. </li>
+</ul>
+
+<p> A potential drawback of <tt>pdfjam</tt> and other scripts based upon it is that any hyperlinks in the source PDF are lost. On the positive side, there is no appreciable degradation of image quality in processing PDF files with these programs, unlike some other indirect methods such as&nbsp; <tt>pdf2ps | psnup | ps2pdf</tt> &nbsp;(in the author's experience). </p>
+
+<p> These tools are designed for Unix-like systems, including Linux and Mac OS X. It seems that they will work also on Windows computers with a suitable installation of <a href="http://www.cygwin.com/">Cygwin</a> (with the Cygwin <tt>tetex-extras</tt> package installed), but this has not been extensively tested.</p>
+
+<p> An alternative set of PDF manipulation tools, which are java-based, is provided by the <a href="http://multivalent.sourceforge.net/">Multivalent</a> project. They do much the same things as <tt>pdfjam</tt>, and quite a bit more. Hyperlinks don't seem to be preserved there either, though, when n-upping a document. </p>
+
+<p> For Mac OS X, n-up with a more visual interface is provided by <a href="http://evolve.lse.ac.uk/software/PDFNupMaker/">PDF Nup Maker</a>. Like <tt>pdfjam</tt>, this is a front end to pdflatex/pdfpages. </p>
+
+<p> The PDFjam software is made available free, under GPL version 2 (see the file named <tt>COPYING</tt> that is included with the package). It comes with ABSOLUTELY NO WARRANTY of fitness for any purpose whatever. </p>
+
+<p> <a name="prereq"></a></p>
+
+<h2 align="justify">Pre-requisites</h2>
+
+<ol>
+  <li>A Unix-like operating system (Linux, Mac OS X, Solaris, etc.; possibly Cygwin)</li>
+  <li>A working, up-to-date installation of <a href="http://www.tug.org/applications/pdftex">pdfTeX</a> (including <tt>pdflatex</tt> and an up-to-date copy of <a href="http://pdftex-def.berlios.de/"><tt>pdftex.def</tt></a>)</li>
+  <li>A working installation of the LaTeX package <a href="http://www.ctan.org/tex-archive/macros/latex/contrib/pdfpages">pdfpages</a> (version 0.4f or later)</li>
+</ol>
+
+<p>Some of the options offered by <tt>pdfjam</tt> also require the LaTeX packages <a href="http://www.ctan.org/tex-archive/macros/latex/contrib/geometry/">geometry</a> and <a href="http://www.ctan.org/tex-archive/macros/latex/contrib/hyperref/">hyperref</a>.</p>
+
+<p> <a name="documentation"></a></p>
+
+<h2 align="justify">Documentation</h2>
+
+<p>The primary documentation for <tt>pdfjam</tt>, and hence for the other scripts that call it, is obtained by </p>
+
+<pre>  pdfjam --help
+</pre>
+<p>This gives information on the arguments to <tt>pdfjam</tt>, and the default settings that apply at your installation. In addition to the arguments that are explicitly documented there, <tt>pdfjam</tt> provides access to all of the options of the pdfpages package: that's a large number of options, and it's a set of options that might change, so users are referred to the current <a href="http://www.ctan.org/tex-archive/macros/latex/contrib/pdfpages/pdfpages.pdf" title="Link to the pdfpages manual (PDF)">pdfpages manual <img src="http://www2.warwick.ac.uk/brands/icons/acrobat.gif" alt="PDF file" title="PDF file" border="0" height="16" width="16" /></a> to see what's available.</p>
+
+<p>In addition, each of the scripts has a (rather basic) <tt>man</tt> page. For example,</p>
+
+<pre>  man pdfjam-pocketmod
+</pre>
+<p>gives information about usage and other aspects of the <tt>pdfjam-pocketmod</tt> script.</p>
+
+<p> <a name="download"></a></p>
+
+<h2 align="justify">Download</h2>
+
+<p>PDFjam is a project at <a href="http://freshmeat.net/projects/pdfjam/">freshmeat</a>: please subscribe there to receive update announcements.</p>
+
+<p>Download the shell scripts as <a href="http://www2.warwick.ac.uk/fac/sci/statistics/staff/academic/firth/software/pdfjam/pdfjam_latest.tgz">pdfjam_latest.tgz</a>. </p>
+
+<p>(If for some reason you don't want the latest version, you can still get older versions. Since version 2.00 the URLs are all of the form <tt>http://go.warwick.ac.uk/pdfjam/pdfjam_VN.tgz</tt>, with &quot;VN&quot; representing the version number. So &quot;VN&quot; could be 2.00, 2.01, 2.02, 2.03 or 2.04; from PDFjam version 2.05 onwards, the dot will be omitted from the version number in the file name, so &quot;VN&quot; will be 205, 206, etc.)</p>
+
+<p>Various people have kindly packaged PDFjam for distribution in other ways (and perhaps there are some not listed here?): </p>
+
+<ul>
+  <li>Eduard Bloch has packaged <a href="http://packages.debian.org/unstable/text/pdfjam">PDFjam for Debian</a> </li>
+  <li>Paul Chvostek has made a <a href="http://www.freebsd.org/cgi/ports.cgi?query=pdfjam">port to FreeBSD</a> </li>
+  <li>Pander has provided a link to <a href="http://packages.ubuntu.com/search?keywords=pdfjam">Ubuntu packages</a> </li>
+  <li>Petr Uzel has made available <a href="http://software.opensuse.org/search?baseproject=ALL&amp;p=1&amp;q=pdfjam">openSUSE packages</a> </li>
+  <li>Alexis Ballier has provided a <a href="http://packages.gentoo.org/package/app-text/pdfjam">Gentoo package</a> </li>
+  <li>Karl Berry has provided a <a href="http://mirror.ctan.org/support/pdfjam">CTAN package</a>.</li>
+</ul>
+
+<p>Cosmin Popescu has written a <a href="http://qt-apps.org/content/show.php/pdfnup-gui?content=134874.">front-end to the pdfnup script, based on Qt</a>.<br />
+   </p>
+
+<p>To download some stand-alone <em>Mac OS X droplets</em> (based on PDFjam version 1.21), see <a href="#droplets">below</a>. </p>
+
+<p> <a name="install"></a></p>
+
+<h2 align="justify">Installation/configuration</h2>
+
+<p>The shell scripts in the <em>bin</em> sub-directory of the package should be placed on the PATH of anyone who needs to use them.</p>
+
+<p>The man files in the <em>man1</em> sub-directory should be installed on the <tt>MANPATH</tt> of all who need to read them.</p>
+
+<p> On many unix-like systems the scripts should run without any further configuration, provided that the pre-requisite TeX installation is present. If you want to check (e.g., prior to installation) that <tt>pdfjam</tt> will work on your system, please unzip the <em>tests</em> sub-directory of the package and follow the instructions that appear in <tt>tests/README-tests.txt</tt>.</p>
+
+<p>If configuration <em>is</em> needed, this can be done through a site-wide or user-specific configuration file. This might be necessary if, for example, your site has a non-standard TeX installation, or a non-standard location for temporary files, or a paper size that is different from the A4 international standard.</p>
+
+<p>The file <a href="pdfjam.conf" title="Sample pdfjam configuration file, plain text"><tt>pdfjam.conf</tt></a> is a sample configuration file which can be edited as needed. After editing, either install the file for site-wide use (at <tt>/etc/pdfjam.conf</tt>, <tt>/usr/share/etc/pdfjam.conf</tt>, <tt>/usr/local/share/pdfjam.conf</tt>, or <tt>/usr/local/etc/pdfjam.conf</tt>) or as a user-defaults file at <tt>~/.pdfjam.conf</tt>. User settings made at <tt>~/.pdfjam.conf</tt> override corresponding settings made in a site-wide configuration file.</p>
+
+<p>For example, if you want your own output to be on &quot;US letter&quot; size paper by default, simply put the line </p>
+
+<pre>  paper=letterpaper
+</pre>
+<p> in a plain text file named file <tt>.pdfnup.conf</tt> in your home directory. (The code word <tt>letterpaper</tt> is how LaTeX refers to that particular page size; for other available paper sizes, please see the output of <tt>pdfjam --help</tt>.)</p>
+
+<p>On some systems it might even be necessary to change the list of places (i.e., <tt>/etc/pdfjam.conf</tt> and others as listed above) that is searched for site-wide configuration files. This can only be done by editing the <tt>pdfjam</tt> script itself. To see which directories on <em>your</em> system are searched for a file named <tt>pdfjam.conf</tt>, use </p>
+
+<pre>  pdfjam --configpath
+</pre>
+<p> <a name="using"></a></p>
+
+<h2 align="justify">Using the scripts</h2>
+
+<p>For a full overview of what <tt>pdfjam</tt> can do, the importance of the <a href="http://www.ctan.org/tex-archive/macros/latex/contrib/pdfpages/pdfpages.pdf" title="Link to the pdfpages manual (PDF)">pdfpages manual <img src="http://www2.warwick.ac.uk/brands/icons/acrobat.gif" alt="PDF file" title="PDF file" border="0" height="16" width="16" /></a> cannot be stressed enough! The following examples merely serve as a brief introduction.</p>
+
+<h3 align="justify">Example 1</h3>
+
+<p>Consider converting each of two documents to a side-by-side &quot;2-up&quot; format. Since we want the two documents to be processed separately, we'll use the <tt>--batch</tt> option: </p>
+
+<pre>  pdfjam --batch --nup 2x1 --suffix 2up --landscape --outfile . file1.pdf file2.pdf
+</pre>
+<p> This will produce new files <tt>file1-2up.pdf</tt> and <tt>file2-2up.pdf</tt> in the current working directory. The above call could be shortened a bit, by using <tt>pdfnup</tt>, to</p>
+
+<pre>  pdfnup --batch --suffix 2up file1.pdf file2.pdf
+</pre>
+<p> In a 'vanilla' installation of <tt>pdfjam</tt>, the default for <tt>--outfile</tt> is the current working directory.</p>
+
+<h3 align="justify">Example 2</h3>
+
+<p>Suppose we want a single new document which puts together selected pages from two different files: </p>
+
+<pre>  pdfjam file1.pdf '{},2-' file2.pdf '10,3-6' --outfile ../myNewFile.pdf
+</pre>
+<p>The new file <tt>myNewFile.pdf</tt>, in the parent directory of the current one, contains an empty page, followed by all pages of <tt>file1.pdf</tt> except the first, followed by pages 10, 3, 4, 5 and 6 from <tt>file2.pdf</tt>. </p>
+
+<p> The resulting PDF page size will be whatever is the default paper size for you at your site. If instead you want to preserve the page size of (the first included page from) <tt>file1.pdf</tt>, use the option <tt>--fitpaper true</tt>: this is the default action of the <tt>pdfjoin</tt> convenience script. </p>
+
+<p>(All pages in an output file from <tt>pdfjam</tt> will have the same size and orientation: for joining together PDF files while preserving different page sizes and orientations, <tt>pdfjam</tt> is not the tool to use; and since <tt>pdfjoin</tt> simply calls <tt>pdfjam</tt>, the same comment applies also to <tt>pdfjoin</tt>. I'm told that if you have <a href="http://pages.cs.wisc.edu/~ghost/">Ghostscript</a> installed, something along these lines might more nicely join files with different page sizes and orientations: </p>
+
+<pre>  gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=finished.pdf file1.pdf file2.pdf
+</pre>
+<p>But I haven't tried it.)</p>
+
+<h3 align="justify">Example 3</h3>
+
+<p>To make a portrait-oriented 4-up file from the pages of three input files, with a thin-line frame around the input pages,</p>
+
+<pre>  pdfjam file1.pdf file2.pdf file3.pdf --no-landscape --frame true --nup 2x2 \
+         --suffix 4up --outfile ~/Documents
+</pre>
+<p>Here a <em>directory</em> was specified at <tt>--outfile</tt>: the resultant file in this case will be ~/Documents/file3-4up.pdf. (Note that <strong>if there's a writeable file with that name already, it will be overwritten</strong>: no check is made, and no warning given.)</p>
+
+<h3 align="justify">Example 4</h3>
+
+<p>Suppose we have a document made up of &quot;US letter&quot; size pages, and we want to convert it to A4:</p>
+
+<pre>  pdfjam 'my US letter file.pdf' --a4paper --outfile 'my A4 file.pdf'
+</pre>
+<h3 align="justify">Example 5</h3>
+
+<p>A useful application of <tt>pdfjam</tt> is for producing a handout from a file of presentation slides. For slides made with the standard 4:3 aspect ratio a nice 6-up handout on A4 paper can be made by </p>
+
+<pre>  pdfjam --nup 2x3 --frame true --noautoscale false --delta &quot;0.2cm 0.3cm&quot; \
+         --scale 0.95 myslides.pdf --outfile myhandout.pdf
+</pre>
+<p>The <tt>--delta</tt> option here comes from the pdfpages package; the <tt>--scale</tt> option is passed to LaTeX's <tt>\includegraphics</tt> command. </p>
+
+<p>The two wrapper scripts <tt>pdfjam-slides6up</tt> and <tt>pdfjam-slides3up</tt> are provided in order to make this particular application of <tt>pdfjam</tt> easy: for example, </p>
+
+<pre>  pdfjam-slides3up --pagenumbering true --batch slides1.pdf slides2.pdf
+</pre>
+<p>makes a pair of 3-up handouts <tt>slides1-3up.pdf</tt> and <tt>slides2-3up.pdf</tt>, with space for side-notes and with the handout pages numbered.</p>
+
+<p>(Slides made by LaTeX's <em>beamer</em> package, using the <tt>handout</tt> class option, work especially nicely with this!)</p>
+
+<h3 align="justify">Example 6</h3>
+
+<p> Suppose we want to trim the pages of our input file prior to n-upping. This can be done by using a pipe: </p>
+
+<pre>  pdfjam myfile.pdf --trim '1cm 2cm 1cm 2cm' --clip true --outfile /dev/stdout | \
+  pdfnup --frame true --outfile myoutput.pdf
+</pre>
+<p>The <tt>--trim</tt> option specifies an amount to trim from the left, bottom, right and top sides respectively; to work as intended here it needs also <tt>--clip true</tt>. These (i.e., <tt>trim</tt> and <tt>clip</tt>) are in fact options to LaTeX's <tt>\includegraphics</tt> command (in the standard <em>graphics</em> package).</p>
+
+<p>(Thanks to Christophe Lange and Christian Lohmaier for suggesting an example on this.)</p>
+
+<h3 align="justify">Example 7</h3>
+
+<p>To offset the content of double-sided printed pages so that they are suitable for binding with a <a href="http://de.wikipedia.org/wiki/Heftstreifen">Heftstreifen</a>, use the <tt>--twoside</tt> option:</p>
+
+<pre>   pdfjam --twoside myfile.pdf --offset '1cm 0cm' --suffix 'offset'
+</pre>
+<h3 align="justify">Example 8</h3>
+
+<p> To use PDF input files whose names do not end in &quot;<tt>.pdf</tt>&quot;, you will need to use the <tt>--checkfiles</tt> option. This depends on the availability of the <tt>file</tt> utility, with support for the options <tt>-Lb</tt>; this can be checked by trying </p>
+
+<pre>  file -Lb 'my PDF file'
+</pre>
+<p> where <tt>'my PDF file'</tt> is the name of a PDF file on your system. The result should be something like &quot;<tt>PDF document, version 1.4</tt>&quot; (possibly with a different version number).</p>
+
+<p> With &quot;<tt>file -Lb</tt>&quot; available, we can use PDF files whose names lack the usual &quot;<tt>.pdf</tt>&quot; extension. For example, </p>
+
+<pre>  pdfnup --checkfiles 'my PDF file'
+</pre>
+<p>should result in a file named &quot;<tt>my PDF file-nup.pdf</tt>&quot; in the current working directory.</p>
+
+<h3 align="justify">Example 9</h3>
+
+<p>If you want to print a landscape-oriented PDF document on both sides of the paper, using a duplex printer that does not have 'tumble' capability, make a new version with every second page rotated for printing:</p>
+
+<pre>   pdfjam --landscape --doublepagestwistodd true my-landscape-document.pdf 
+</pre>
+<h3 align="justify">Example 10</h3>
+
+<p> Please feel free to suggest other examples that might help people! (For the email address, see <a href="#bugs">reporting bugs</a>)</p>
+
+<p> <a name="droplets"></a></p>
+
+<h2 align="justify">Mac OS X only: drag-and-drop</h2>
+
+<p>Under <strong>Mac OS X</strong>, <a href="http://www.wsanchez.net/software/">DropScript</a> has been used to make some simple drag-and-drop applications. Some sample droplets are provided in <a href="http://www.warwick.ac.uk/go/pdfjam/pdfdroplets_1.21.dmg">pdfdroplets_1.21.dmg</a>: these may be all you'll need! The sample droplets look like this: </p>
+
+<center> <img src="pdfdroplets.png" border="0" /> </center>
+<p> These droplets assume that your pdflatex is at <tt>/usr/texbin/pdflatex</tt>. If pdflatex lives somewhere else on your system, the droplets won't work until you include in your home directory a file named <tt>.pdfnup.conf</tt> (or there is a system-wide file <tt>pdfnup.conf</tt> at one of the four locations listed above), containing the line </p>
+
+<pre>pdflatex=/path/to/pdflatex
+</pre>
+<p>where <tt> /path/to/pdflatex </tt> is the answer you get when you type <tt> which pdflatex </tt> in the Terminal. (If you get no answer, chances are that you do not have <tt>pdflatex</tt> installed on your Mac; if you need to install it, you could just download and install <a href="http://www.tug.org/mactex">MacTeX</a> or one of its slimmed-down variants.) </p>
+
+<p> <a name="faq"></a></p>
+
+<h2 align="justify">FAQ</h2>
+
+<p> <strong>1. Why &quot;PDFjam&quot;?</strong><br />
+   Because it's for PDF files, and jam is what I like best on my toast (well, second best after marmalade, anyway). </p>
+
+<p> <strong>2. The thing runs but the output doesn't look the way it should. Why?</strong><br />
+   Most likely either your pdfTeX or your pdfpages installation is an old version. (Check also that <tt>pdftex.def</tt>, to be found in in <tt>.../texmf/tex/latex/graphics/</tt>, is up to date.) If the problem persists even with up-to-date versions of pdfTeX, <tt>pdftex.def</tt> and pdfpages, then please do report it. </p>
+
+<p> <a name="bugs"></a></p>
+
+<h2 align="justify">Reporting bugs</h2>
+
+<p>Please report any bugs found in these scripts, to d.firth (at warwick.ac.uk).</p>
+
+<h3>Some known problems:</h3>
+
+<ul>
+  <li> In <em>Cygwin</em>, using <tt>pdfjam</tt> in a pipeline does not seem to work. Scripts like <tt>pdfjam-pocketmod</tt>, which use pipelines, therefore do not work there. The problem seems to be with <em>Cygwin</em>'s handling of file descriptors within pipelines.</li>
+</ul>
+
+<p>Solving these problems is on the to-do list: if you have solved one of them already please let me know!</p>
+
+<p> <a name="history"></a></p>
+
+<h2 align="justify">Version history</h2>
+
+<p> <strong>2.08</strong>: fixed a bug in one of the tests [2010-11-14] </p>
+
+<p> <strong>2.07</strong>: two other common graphics formats (JPG and PNG) are now explicitly allowed as input files (i.e., not only PDF files are allowed as inputs). [2010-11-13] </p>
+
+<p><strong>2.06</strong>: changed the <tt>pdfbook</tt> script to include <tt>--booklet true</tt> as the default behaviour (thanks to Julien Bossert for this good suggestion). [2010-05-11] </p>
+
+<p> <strong>2.05</strong>: changes to the <tt>pdfbook</tt> script [the <tt>--right-edge-binding</tt> option is now redundant, and there's a new <tt>--short-edge</tt> option for binding along the short edge of pages instead of the long edge (thanks to Marco Pessotto for this)]. The <tt>--preamble</tt> option to <tt>pdfjam</tt> is enhanced, to allow multiple instances which get concatenated. Also various minor corrections to man pages. [2010-04-25] </p>
+
+<p> <strong>2.04</strong>: various minor improvements suggested by Debian maintainers (thanks to Eduard Bloch for these). The main things are: addition of the <tt>--version</tt> option; liberalisation of <tt>pdfjam</tt> to allow files in <em>JPEG</em> format to be specified as input, as well as PDF (I don't know why or if this might work! but some people have said it does); tidying of the man files; and more use of <tt>exec</tt>, to avoid forking. [2010-04-22] </p>
+
+<p> <strong>2.03</strong>: fixed a bug which caused problems when your <tt>/bin/sh</tt> is the <em>zsh</em> shell; fixed a bug which prevented the correct representation of many UTF-8 characters in <tt>pdfinfo</tt> data. [2010-04-20] </p>
+
+<p> <strong>2.02</strong>: more progress on portability; introduced the beginnings of a suite of tests; improvements in the <tt>--keepinfo</tt> functionality, and in the treatment of file permissions (thanks to Marco Pessotto for these). [2010-04-14] </p>
+
+<p> <strong>2.01</strong>: fixed a silly bug (thoughtless use of &quot;<tt>test -a</tt>&quot; in a couple of places) which seriously affected portability. [2010-04-13] </p>
+
+<hr color="grey" /> 
+<p> <strong>2.00</strong>: a <strong>major re-design</strong>. This is not completely backward-compatible with previous versions of the <tt>pdfnup</tt>, <tt>pdfjoin</tt> and <tt>pdf90</tt> scripts. The differences in interface are few, though, and the main ones are listed below. </p>
+
+<p>The main changes are:</p>
+
+<ul>
+  <li> The new script <tt>pdfjam</tt> now does all the work; all the other scripts included with the package are just simple wrappers for <tt>pdfjam</tt>. </li>
+  <li> <tt>pdfjam</tt> makes available essentially <em>all</em> of the facilities of the pdfpages package (without having to know what they are). </li>
+  <li> Various security and portability issues have been resolved. (None of the scripts now calls for <tt>/bin/bash</tt>; and the handling of temporary files is now much safer.) </li>
+  <li> <tt>pdfjam</tt> can take PDF input from <tt>/dev/stdin</tt>, and send output to <tt>/dev/stdout</tt>. (This allows <tt>pdfjam</tt> to be used in a pipeline.) </li>
+  <li> If the <tt>--outfile</tt> option specifies a relative path, that path is now relative to the <em>current working directory</em> (as is normally expected of unix utilities). <strong>This is different behaviour from previous versions.</strong> </li>
+  <li> With multiple input files, <tt>pdfjam</tt> offers two distinct methods of processing. The default is to take pages as specified from the input files, and combine them into a single document. If the <tt>--batch</tt> option is used, <tt>pdfjam</tt> operates <em>separately</em> on the input files, producing one output file per input file. <strong>This is different behaviour from previous versions.</strong> </li>
+  <li> Page selection is available separately for each input file. A <strong>difference from previous versions</strong> is that the <tt>--pages</tt> keyword is no longer used. </li>
+  <li><tt>pdfjam</tt> uses the <tt>\includepdfmerge</tt> command from <em>pdfpages</em>, as a result of which all pages in an output file have the same size and orientation. <strong>This is different behaviour from previous versions.</strong> </li>
+  <li> Output page orientation is now controlled by using <tt>--landscape</tt> (negated, if necessary, by <tt>--no-landscape</tt>). The previous <tt>--orient</tt> option is no longer used, and in particular &quot;<tt>--orient auto</tt>&quot; is no longer available. <strong>This is different behaviour from previous versions.</strong> </li>
+  <li> Other new features include: 
+    <ul>
+      <li> <tt>--keepinfo</tt> option, to allow preservation of PDF document information, if the <tt>pdfinfo</tt> utility and the LaTeX <tt>hyperref</tt> package are available (thanks to Robert Wenner for suggesting this); </li>
+      <li> <tt>--pdftitle</tt>, <tt>--pdfauthor</tt>, <tt>--pdfsubject</tt> and <tt>--pdfkeywords</tt> options, to specify new PDF document information (these require the LaTeX <tt>hyperref</tt> package); </li>
+      <li> many more &quot;named&quot; output page sizes are available if the LaTeX <tt>geometry</tt> package is installed (the full list of allowed paper specifications is: <tt>a0paper, a1paper, a2paper, a3paper, a4paper, a5paper, a6paper b0paper, b1paper, b2paper, b3paper, b4paper, b5paper, b6paper letterpaper, executivepaper, legalpaper</tt>;&nbsp; thanks to Corn&eacute; Verbruggen and Mel Irizarry for suggesting this) and non-standard page sizes can also be defined; </li>
+      <li> <tt>--checkfiles</tt> option to request that input files be checked using the <tt>file</tt> utility, rather than requiring the file name to end in &quot;<tt>.pdf</tt>&quot; or &quot;<tt>.PDF</tt>&quot;; </li>
+      <li> <tt>--twoside</tt> option, to allow the LaTeX <em>twoside</em> class option to be specified (thanks to Johannes Reinhard for suggesting this); </li>
+      <li> <tt>--pagecolor</tt> option, to allow the background colour of output pages to be changed (thanks to James Fisher for suggesting this); </li>
+      <li> <tt>--vanilla</tt> option to run <tt>pdfjam</tt> without reading site-wide or user configuration files. </li>
+    </ul>
+
+  </li>
+</ul>
+
+<p> In addition, various reported bugs have been fixed &mdash; many thanks to all those kind people who reported them (too numerous to list here!) [2010-03-14]</p>
+
+<hr color="grey" /> 
+<p> <strong>1.21</strong>: bug fixes, including security issues (many thanks to Eduard Bloch, Robert Buchholz and Martin Vaeth for helpful reports on vulnerabilities and for kindly contributing patches); the scripts now call for <tt>/bin/bash</tt> as interpreter; availability of <tt>mktemp</tt> is now also assumed; the Mac OS X droplets now look for <tt>pdflatex</tt> at (by default) <tt>/usr/texbin/pdflatex</tt> [2009-01-19]</p>
+
+<p> <strong>1.20</strong>: added minimal man pages; added extra possible locations for the site-wide configuration file [2005-01-25] </p>
+
+<p> <strong>1.11</strong>: added the <tt>--scale</tt> option to pdfnup, which allows page margins either to be enlarged (e.g,. <tt>--scale 0.9</tt>) or reduced (e.g,. <tt>--scale 1.1</tt>) by scaling the page contents. By popular request! [2004-10-13] </p>
+
+<p> <strong>1.10</strong>: output files now appear by default in same directory as input, rather than in the current working directory; fixed a bug that caused the scripts not to work on some versions of Solaris (thanks to Daniel Gebhart); major improvements to the Mac OS X sample droplets. [2004-06-24] </p>
+
+<p> <strong>1.03</strong>: minor changes towards POSIX compliance. [2004-05-09] </p>
+
+<p> <strong>1.02</strong>: added a COPYING file to the package. [2004-05-08] </p>
+
+<p> <strong>1.00</strong>: package re-named PDFjam. [2004-05-07] </p>
+
+<p> <strong>0.99a</strong>: a minor change to the output of <tt>pdfnup --help</tt> and <tt>pdfjoin --help</tt> [2004-05-06] </p>
+
+<p> <strong>0.99</strong>: various improvements to pdfnup, including the handling of multiple PDF input files. Added pdfjoin and pdf90. [2004-05-05] </p>
+
+<p> <strong>0.97</strong>: corrections to the output of <tt>pdfnup --help</tt> [2004-04-23] </p>
+
+<p> <strong>0.96</strong>: minor changes to comments in the pdfnup script [2004-02-12] </p>
+
+<p> <strong>0.95</strong>: added the possibility of site-specific and user-specific configuration files (thanks to Jason Lewis for suggesting this) [2004-01-28] </p>
+
+<p> <strong>0.9</strong>: added <tt>--openright</tt> (thanks to Jason Lewis for suggesting this) [2004-01-28] </p>
+
+<p> <strong>0.8</strong>: added <tt>pdfnup --help</tt> facility (thanks to Wilfrid Kendall for this suggestion) [2003-09-12] </p>
+
+<p> <strong>0.7</strong>: paths involving spaces now permitted; page trimming added (thanks to Alex Montgomery for suggesting that); default output filename now has a dash inserted before the &quot;nup&quot; label (as in <tt> wasteful-2x2.pdf </tt>); sample Mac OS X droplets provided [2003-01-26] </p>
+
+<p> <strong>0.6</strong>: use of paths involving spaces now reports an error [2002-08-22] </p>
+
+<p> <strong>0.5</strong>: fixed a bug which caused incompatibility with some types of unix [2002-06-24] </p>
+
+<p> <strong>0.4</strong>: better error trapping, improved portability [2002-04-30] </p>
+
+<p> <strong>0.3</strong>: first public release of pdfnup [2002-04-04] </p>
+
+
+</body> </html>

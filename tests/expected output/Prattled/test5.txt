@@ -1,0 +1,12 @@
+          ----
+  pdfjam: This is pdfjam version 2.08.
+  pdfjam: Called with '--vanilla': no user or site configuration
+          files will be read.
+  pdfjam: Effective call for this run of pdfjam:
+          ../bin/pdfjam --booklet 'true' --landscape --suffix book --signature '4' --suffix test5 --vanilla --outfile actual output/PDF files --preamble '\usepackage{everyshi}
+          \makeatletter
+          \EveryShipout{\ifodd\c@page\pdfpageattr{/Rotate 180}\fi}
+          \makeatother
+          %% Just a comment' -- PDF\ sources/numbers\ A4.pdf - 
+  pdfjam: Calling pdflatex...
+  pdfjam: Finished.  Output was to 'actual output/PDF files/numbers A4-test5.pdf'.

@@ -1,0 +1,24 @@
+          ----
+  pdfjam: This is pdfjam version 2.08.
+  pdfjam: Called with '--vanilla': no user or site configuration
+          files will be read.
+  pdfjam: Effective call for this run of pdfjam:
+          ../bin/pdfjam --vanilla --outfile /dev/stdout -- PDF\ sources/numbers\ A4.pdf 1-8 
+  pdfjam: Calling pdflatex...
+  pdfjam: Finished.  Output was to '/dev/stdout'.
+          ----
+  pdfjam: This is pdfjam version 2.08.
+  pdfjam: Called with '--vanilla': no user or site configuration
+          files will be read.
+  pdfjam: Effective call for this run of pdfjam:
+          ../bin/pdfjam --angle '180' --vanilla --outfile /dev/stdout -- /dev/stdin 1,8,7,6 
+  pdfjam: Calling pdflatex...
+  pdfjam: Finished.  Output was to '/dev/stdout'.
+          ----
+  pdfjam: This is pdfjam version 2.08.
+  pdfjam: Called with '--vanilla': no user or site configuration
+          files will be read.
+  pdfjam: Effective call for this run of pdfjam:
+          ../bin/pdfjam --nup '4x2' --landscape --frame 'true' --vanilla --outfile actual output/PDF files/test3.pdf -- PDF\ sources/numbers\ A4.pdf 2-5 /dev/stdin - 
+  pdfjam: Calling pdflatex...
+  pdfjam: Finished.  Output was to 'actual output/PDF files/test3.pdf'.
